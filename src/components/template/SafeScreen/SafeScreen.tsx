@@ -14,7 +14,6 @@ function SafeScreen({children}: PropsWithChildren) {
         layout.flex_1,
         {
           backgroundColor: navigationTheme.colors.background,
-          // Paddings to handle safe area
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
