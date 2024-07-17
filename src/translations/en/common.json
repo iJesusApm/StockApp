@@ -1,6 +1,7 @@
 {
   "appName": {
     "full": "React Native StockApp",
-    "initials": "RNB"
+    "initials": "RNB",
+    "error": "Something went wrong."
   }
 }

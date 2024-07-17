@@ -1,43 +1,38 @@
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {ActivityIndicator, Text, View} from 'react-native'
-import {useQuery} from '@tanstack/react-query'
 import {useTranslation} from 'react-i18next'
 import {CommonActions} from '@react-navigation/native'
 
 import {useTheme} from '@/theme'
-import {Brand} from '@/components/molecules'
 import {SafeScreen} from '@/components/template'
 
 import type {RootScreenProps} from '@/types/navigation'
 
 function Startup({navigation}: RootScreenProps<'Startup'>) {
   const {layout, gutters, fonts} = useTheme()
-  const {t} = useTranslation(['startup'])
+  const {t} = useTranslation(['welcome'])
 
-  const {isSuccess, isFetching, isError} = useQuery({
-    queryKey: ['startup'],
-    queryFn: () => {
-      return Promise.resolve(true)
-    },
-  })
-
-  useEffect(() => {
-    if (isSuccess) {
+  const handleInit = () => {
+    setTimeout(() => {
       navigation.dispatch(
         CommonActions.reset({
           index: 0,
           routes: [{name: 'Example'}],
         })
       )
-    }
-  }, [isSuccess])
+    }, 1500)
+  }
+
+  useEffect(() => {
+    handleInit()
+  }, [])
 
   return (
     <SafeScreen>
       <View style={[layout.flex_1, layout.col, layout.itemsCenter, layout.justifyCenter]}>
-        <Brand />
-        {isFetching && <ActivityIndicator size="large" style={[gutters.marginVertical_24]} />}
-        {isError && <Text style={[fonts.size_16, fonts.red500]}>{t('startup:error')}</Text>}
+        <Text style={[fonts.size_40, fonts.gray800, fonts.bold]}>{t('welcome:title')}</Text>
+        <Text style={[fonts.gray400, fonts.bold, fonts.size_24, gutters.marginBottom_32]}>{t('welcome:subtitle')}</Text>
+        <ActivityIndicator size="large" style={[gutters.marginVertical_24]} />
       </View>
     </SafeScreen>
   )
