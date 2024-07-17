@@ -12,6 +12,8 @@ const colorsLight = {
   purple500: '#44427D',
   purple100: '#E1E1EF',
   purple50: '#1B1A23',
+  green500: '#4CAF50',
+  black: '#000000'
 } as const
 
 const colorsDark = {
@@ -24,6 +26,8 @@ const colorsDark = {
   purple500: '#A6A4F0',
   purple100: '#252732',
   purple50: '#1B1A23',
+  green500: '#4CAF50',
+  black: '#4D4D4D'
 } as const
 
 const sizes = [12, 16, 24, 32, 40, 80] as const
