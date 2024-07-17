@@ -2,6 +2,11 @@
   "appName": {
     "full": "StockApp React Native",
     "initials": "RNB",
-    "error": "Quelque chose s'est mal passé."
+    "error": "Quelque chose s'est mal passé.",
+    "addAlert": "Ajouter une alerte",
+    "cancel": "Annuler",
+    "selectStock": "Sélectionnez une chaussette à surveiller",
+    "noAlerts": "Aucun paramètre d'alerte",
+    "priceAlert": "Alerte de prix"
   }
 }

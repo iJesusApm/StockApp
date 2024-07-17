@@ -2,6 +2,11 @@
   "appName": {
     "full": "React Native StockApp",
     "initials": "RNB",
-    "error": "Something went wrong."
+    "error": "Something went wrong.",
+    "addAlert": "Add alert",
+    "cancel": "Cancel",
+    "selectStock": "Select a sotck to monitor",
+    "noAlerts": "No alerts setters",
+    "priceAlert": "Price Alert"
   }
 }

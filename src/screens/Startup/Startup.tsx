@@ -9,10 +9,14 @@ import {SafeScreen} from '@/components/template'
 import type {RootScreenProps} from '@/types/navigation'
 
 function Startup({navigation}: RootScreenProps<'Startup'>) {
-  const {layout, gutters, fonts} = useTheme()
+  const {layout, gutters, fonts, variant, changeTheme} = useTheme()
   const {t} = useTranslation(['welcome'])
 
   const handleInit = () => {
+    if (variant === 'default') {
+      changeTheme('dark')
+    }
+
     setTimeout(() => {
       navigation.dispatch(
         CommonActions.reset({
@@ -20,7 +24,7 @@ function Startup({navigation}: RootScreenProps<'Startup'>) {
           routes: [{name: 'Tabs'}],
         })
       )
-    }, 1500)
+    }, 2000)
   }
 
   useEffect(() => {
