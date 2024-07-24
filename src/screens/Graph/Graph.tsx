@@ -1,8 +1,6 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import {View, StyleSheet, Dimensions, ActivityIndicator} from 'react-native'
 import {LineChart} from 'react-native-chart-kit'
-
-import {subscribe, unsubscribe, onMessage, onOpen} from '@/services/WebSocketService'
 
 import {useTheme} from '@/theme'
 import {Stock} from '@/types/schemas/stock'
@@ -10,6 +8,8 @@ import {symbols} from '@/constants/symbols'
 
 import Header from '@/components/Header/Header'
 import {SafeScreen} from '@/components/template'
+import {useWebSocketData} from '@/context/socket'
+import {formatPrice} from '@/utils/formats'
 
 interface ChartData {
   labels: string[]
@@ -17,30 +17,16 @@ interface ChartData {
 }
 
 const GraphScreen = () => {
-  const [chartData, setChartData] = useState<ChartData>({labels: [], datasets: []})
   const {colors, layout, gutters} = useTheme()
-
-  useEffect(() => {
-    onOpen(() => {
-      symbols.forEach(symbol => subscribe(symbol))
-    })
-
-    onMessage((data: Stock[]) => {
-      const formattedData = formatChartData(data)
-      setChartData(formattedData)
-      symbols.forEach(symbol => unsubscribe(symbol))
-    })
-
-    return () => {
-      symbols.forEach(symbol => unsubscribe(symbol))
-    }
-  }, [])
+  const watchlist = useWebSocketData()
 
   const formatChartData = (data: Stock[]): ChartData => {
     const labels = data.map(item => item.s.replace('BINANCE:', ''))
     const prices = data.map(item => item.p)
     return {labels, datasets: [{data: prices}]}
   }
+
+  const chartData = formatChartData(watchlist)
 
   if (!Boolean(chartData.labels.length)) {
     return (
@@ -60,7 +46,12 @@ const GraphScreen = () => {
           data={chartData}
           width={Dimensions.get('window').width - 40}
           height={220}
-          yAxisLabel="$"
+          // yAxisLabel="$"
+          fromZero
+          horizontalLabelRotation={-20}
+          verticalLabelRotation={-5}
+          formatYLabel={item => formatPrice(Number(item))}
+          segments={6}
           chartConfig={{
             backgroundColor: colors.purple50,
             backgroundGradientFrom: colors.purple50,
