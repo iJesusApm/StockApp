@@ -5,21 +5,11 @@ import {NavigationContainer} from '@react-navigation/native'
 import {SafeAreaProvider} from 'react-native-safe-area-context'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
-import {Example, Startup, Alert, Graph, WatchList} from '@/screens'
+import {Startup, Alert, Graph, WatchList} from '@/screens'
 import {useTheme} from '@/theme'
+import {RootStackParamList, RootTabParamList} from '@/types/navigation'
+
 import {ALERT, GRAPH, WATCHLIST} from './routes'
-
-type RootStackParamList = {
-  Startup: undefined
-  Example: undefined
-  Tabs: undefined
-}
-
-type RootTabParamList = {
-  alert: undefined
-  watchlist: undefined
-  graph: undefined
-}
 
 const Stack = createStackNavigator<RootStackParamList>()
 const Tab = createBottomTabNavigator<RootTabParamList>()
@@ -82,7 +72,6 @@ function ApplicationNavigator() {
       <NavigationContainer theme={navigationTheme}>
         <Stack.Navigator key={variant} screenOptions={{headerShown: false}}>
           <Stack.Screen name="Startup" component={Startup} />
-          <Stack.Screen name="Example" component={Example} />
           <Stack.Screen name="Tabs" component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
